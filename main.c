@@ -34,8 +34,6 @@ int speed=50;
 void GET_BOTTLES_V2();
 int main()
 {	
-
-
     GET_BOTTLES_V2();
 
     return 0;
@@ -46,6 +44,8 @@ void GET_BOTTLES_V2()
     SLOW_SERVO(up_down, up, 30);
     SLOW_SERVO(left_right, right, 30);
     double start_time=seconds();
+    //Grabbing first two bottles
+    //Getting to bottles
     int side_thresh=moving_calibrate(sfs, frm, flm, brm, blm, -25)+1500;
     int front_thresh=moving_calibrate(frs, frm, flm, brm, blm, -25)+1500;
     SUB_SIDEWAYS(frm, flm,brm, blm, -speed*1.5, sfs, sbs, side_thresh);
@@ -72,6 +72,7 @@ void GET_BOTTLES_V2()
     freeze(brm);
     msleep(100);
     int avg=INT_AVG(data, 150);
+    //Grabbing bottles
     while (analog(long_range)<avg+1000)
     {
         sideways(frm, flm, brm, blm, -speed/2);   
@@ -86,6 +87,7 @@ void GET_BOTTLES_V2()
     SLOW_SERVO(up_down, down, 30);
     SLOW_SERVO(left_right, left,20);
     SLOW_SERVO(up_down, up+500, 20);
+    //Getting to drink area
     while (analog(long_range)<avg+1000)
     {
         sideways(frm, flm, brm, blm, -speed/2);   
@@ -110,6 +112,7 @@ void GET_BOTTLES_V2()
     SUB_FORWARD(frm, flm,brm, blm, speed, frs, fls, front_thresh);
     SUW_FORWARD(frm, flm,brm, blm, speed/2, frs, fls, front_thresh);
     SUB_FORWARD(frm, flm,brm, blm, speed, frs, fls, front_thresh);
+    //Depositing Bottles
     SLOW_SERVO(up_down, down, 50);
     SLOW_SERVO(left_right, right, 50);
     SLOW_SERVO(up_down, up+500, 50);
@@ -133,6 +136,7 @@ void GET_BOTTLES_V2()
     msleep(500);
     spin(frm, flm, brm, flm, speed);
     msleep(2500);
+    //Getting bottles 3 and 4 (follows many of the same steps as for getting bottles 1 and 2)
     SUB_SIDEWAYS(frm, flm,brm, blm, -speed, sfs, sbs, side_thresh);
     LINE_FOLLOW_STRAIGHT(frm, flm, brm, blm, speed*1.5, 2, frs,fls, front_thresh);
     SUB_SIDEWAYS(frm, flm,brm, blm, -speed, sfs, sbs, side_thresh);
@@ -210,6 +214,7 @@ void GET_BOTTLES_V2()
     msleep(500);
     spin(frm, flm, brm, flm, speed);
     msleep(2500);
+    //Getting bottles 5 and 6
     SUB_SIDEWAYS(frm, flm,brm, blm, -speed, sfs, sbs, side_thresh);
     LINE_FOLLOW_STRAIGHT(frm, flm, brm, blm, speed*1.5, 2, frs,fls, front_thresh);
     SUB_SIDEWAYS(frm, flm,brm, blm, -speed, sfs, sbs, side_thresh);
